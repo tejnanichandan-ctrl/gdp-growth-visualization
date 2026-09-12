@@ -1,0 +1,13 @@
+country,year,year_label,gdp_deflator,cpi_inflation
+United States,2021,2021,4.44,4.70
+United States,2022,2022,6.46,8.00
+United States,2023,2023,3.28,4.12
+Germany,2021,2021,4.78,3.10
+Germany,2022,2022,6.42,6.87
+Germany,2023,2023,6.08,5.94
+Japan,2021,2021,-0.12,-0.23
+Japan,2022,2022,0.99,2.50
+Japan,2023,2023,4.11,3.27
+India,2021,FY2021-22,8.54,5.51
+India,2022,FY2022-23,7.31,6.65
+India,2023,FY2023-24,3.88,5.38

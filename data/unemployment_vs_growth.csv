@@ -1,0 +1,13 @@
+country,year,year_label,unemployment_rate,real_gdp_growth
+United States,2021,US 2021,5.35,5.95
+United States,2022,US 2022,3.64,2.49
+United States,2023,US 2023,3.63,2.90
+Germany,2021,Germany 2021,3.68,3.20
+Germany,2022,Germany 2022,3.12,1.80
+Germany,2023,Germany 2023,3.10,-0.30
+Japan,2021,Japan 2021,2.80,2.50
+Japan,2022,Japan 2022,2.60,1.00
+Japan,2023,Japan 2023,2.60,1.90
+India,2021,India FY2021-22,4.10,9.05
+India,2022,India FY2022-23,3.20,7.00
+India,2023,India FY2023-24,3.10,7.59

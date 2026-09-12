@@ -1,0 +1,13 @@
+country,year,year_label,real_gdp_per_capita_growth
+United States,2021,2021,5.81
+United States,2022,2022,2.11
+United States,2023,2023,2.39
+Germany,2021,2021,3.18
+Germany,2022,2022,0.81
+Germany,2023,2023,-1.10
+Japan,2021,2021,2.92
+Japan,2022,2022,1.46
+Japan,2023,2023,2.45
+India,2021,FY2021-22,8.03
+India,2022,FY2022-23,6.69
+India,2023,FY2023-24,6.71

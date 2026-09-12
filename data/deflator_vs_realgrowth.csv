@@ -1,0 +1,13 @@
+country,year,year_label,gdp_deflator,real_gdp_growth
+United States,2021,US 2021,4.44,5.95
+United States,2022,US 2022,6.46,2.49
+United States,2023,US 2023,3.28,2.90
+Germany,2021,Germany 2021,4.78,3.20
+Germany,2022,Germany 2022,6.42,1.80
+Germany,2023,Germany 2023,6.08,-0.30
+Japan,2021,Japan 2021,-0.12,2.50
+Japan,2022,Japan 2022,0.99,1.00
+Japan,2023,Japan 2023,4.11,1.90
+India,2021,India FY2021-22,8.54,9.05
+India,2022,India FY2022-23,7.31,7.00
+India,2023,India FY2023-24,3.88,7.59
