@@ -37,7 +37,12 @@ d1 <- read_csv("data/gdp_growth.csv", show_col_types = FALSE) %>%
 g1 <- ggplot(d1, aes(x = cy, y = growth, fill = series)) +
   geom_col(position = position_dodge(width = 0.75), width = 0.68, color = "white", linewidth = 0.2) +
   geom_hline(yintercept = 0, color = "grey40", linewidth = 0.4) +
+  geom_text(aes(label = sprintf("%.1f", growth),
+                vjust = ifelse(growth >= 0, -0.4, 1.3)),
+            position = position_dodge(width = 0.75), size = 2.6, fontface = "bold",
+            family = "serif", show.legend = FALSE) +
   scale_fill_manual(values = c("Nominal GDP Growth" = "#1B3A6B", "Real GDP Growth" = "#D98E04")) +
+  scale_y_continuous(expand = expansion(mult = c(0.05, 0.08))) +
   labs(title = "Graph 1. Nominal GDP Growth vs. Real GDP Growth (2021-2023)",
        subtitle = "The widening gap between the two series reflects the inflationary component of nominal growth",
        x = NULL, y = "Growth (%)", fill = NULL,
@@ -56,6 +61,9 @@ d2 <- read_csv("data/gdp_growth.csv", show_col_types = FALSE) %>%
 g2 <- ggplot(d2, aes(x = year, y = gap, color = country, group = country)) +
   geom_line(linewidth = 1.1) +
   geom_point(size = 2.6) +
+  ggrepel::geom_text_repel(aes(label = sprintf("%.1f", gap)), size = 3.2, fontface = "bold",
+                            family = "serif", show.legend = FALSE, seed = 3,
+                            min.segment.length = Inf, direction = "y", box.padding = 0.25) +
   scale_color_manual(values = country_colors) +
   scale_x_continuous(breaks = c(2021, 2022, 2023)) +
   labs(title = "Graph 2. Nominal-Real GDP Growth Gap, 2021-2023",
@@ -76,6 +84,8 @@ d3 <- read_csv("data/deflator_cpi.csv", show_col_types = FALSE) %>%
 g3 <- ggplot(d3, aes(x = year, y = value, color = measure, group = measure)) +
   geom_line(linewidth = 1) +
   geom_point(size = 2) +
+  geom_text(aes(label = sprintf("%.1f", value)), size = 2.4, fontface = "bold",
+            family = "serif", show.legend = FALSE, vjust = -0.9) +
   facet_wrap(~country, nrow = 1) +
   scale_color_manual(values = c("GDP Deflator" = "#1B3A6B", "CPI Inflation" = "#B23A2E")) +
   scale_x_continuous(breaks = c(2021, 2022, 2023)) +
@@ -99,8 +109,14 @@ g4 <- ggplot(d4, aes(x = year, y = index, color = country, group = country)) +
   geom_hline(yintercept = 100, linetype = "dashed", color = "grey50", linewidth = 0.4) +
   geom_line(linewidth = 1.1) +
   geom_point(size = 2.4) +
+  geom_text(data = d4 %>% filter(year == max(year)),
+            aes(label = sprintf("%.1f", index)), size = 3.2, fontface = "bold",
+            family = "serif", hjust = -0.25, show.legend = FALSE) +
+  geom_text(data = d4 %>% filter(year == min(year)),
+            aes(label = sprintf("%.1f", index)), size = 3.2, fontface = "bold",
+            family = "serif", vjust = 1.6, show.legend = FALSE) +
   scale_color_manual(values = country_colors) +
-  scale_x_continuous(breaks = 2019:2023) +
+  scale_x_continuous(breaks = 2019:2023, expand = expansion(mult = c(0.05, 0.09))) +
   labs(title = "Graph 4. Real GDP Recovery Trajectory (2019 = 100)",
        subtitle = "India shows the strongest post-pandemic real GDP recovery; Germany shows the weakest",
        x = "Year", y = "Real GDP Index (2019 = 100)", color = NULL,
@@ -109,24 +125,34 @@ g4 <- ggplot(d4, aes(x = year, y = index, color = country, group = country)) +
 save_academic(g4, "graph4_real_gdp_recovery_index", width = 9, height = 6)
 
 # ------------------------------------------------------------
-# GRAPH 5 — Real GDP Growth vs GDP Deflator (Scatter Plot)
+# GRAPH 5 — Real GDP Growth vs GDP Deflator (Grouped Bar, by Country-Year)
 # ------------------------------------------------------------
 d5 <- read_csv("data/deflator_vs_realgrowth.csv", show_col_types = FALSE) %>%
-  mutate(country = factor(country, levels = country_order))
+  mutate(country = factor(country, levels = country_order),
+         cy = paste0(country, "\n(", year_label, ")"),
+         cy = fct_inorder(cy)) %>%
+  pivot_longer(c(gdp_deflator, real_gdp_growth), names_to = "series", values_to = "value") %>%
+  mutate(series = recode(series,
+                          gdp_deflator = "GDP Deflator",
+                          real_gdp_growth = "Real GDP Growth"),
+         series = factor(series, levels = c("GDP Deflator", "Real GDP Growth")))
 
-g5 <- ggplot(d5, aes(x = gdp_deflator, y = real_gdp_growth, color = country)) +
-  geom_vline(xintercept = 0, color = "grey70", linewidth = 0.3) +
-  geom_hline(yintercept = 0, color = "grey70", linewidth = 0.3) +
-  geom_point(size = 3.4, alpha = 0.9) +
-  ggrepel::geom_text_repel(aes(label = year_label), size = 3, family = "serif",
-                            show.legend = FALSE, seed = 42) +
-  scale_color_manual(values = country_colors) +
-  labs(title = "Graph 5. Real GDP Growth vs. GDP Deflator",
-       subtitle = "Each point is one country-year; a negative relationship would suggest inflation crowding out real output",
-       x = "GDP Deflator (%)", y = "Real GDP Growth (%)", color = NULL,
+g5 <- ggplot(d5, aes(x = cy, y = value, fill = series)) +
+  geom_col(position = position_dodge(width = 0.75), width = 0.68, color = "white", linewidth = 0.2) +
+  geom_hline(yintercept = 0, color = "grey40", linewidth = 0.4) +
+  geom_text(aes(label = sprintf("%.1f", value),
+                vjust = ifelse(value >= 0, -0.4, 1.3)),
+            position = position_dodge(width = 0.75), size = 2.6, fontface = "bold",
+            family = "serif", show.legend = FALSE) +
+  scale_fill_manual(values = c("GDP Deflator" = "#1B3A6B", "Real GDP Growth" = "#D98E04")) +
+  scale_y_continuous(expand = expansion(mult = c(0.05, 0.08))) +
+  labs(title = "Graph 5. Real GDP Growth vs. GDP Deflator, by Country-Year",
+       subtitle = "Bars close in height indicate real growth and price effects were similarly sized that year",
+       x = NULL, y = "Rate (%)", fill = NULL,
        caption = "Source: Author's compilation from national statistical agencies") +
-  theme_academic()
-save_academic(g5, "graph5_realgrowth_vs_deflator_scatter", width = 9, height = 6.5)
+  theme_academic() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = rel(0.75)))
+save_academic(g5, "graph5_realgrowth_vs_deflator_scatter", width = 12, height = 6.5)
 
 # ------------------------------------------------------------
 # GRAPH 6 — Expenditure Components of Real GDP Growth (Grouped Bar)
@@ -172,10 +198,17 @@ d7 <- read_csv("data/contribution_to_growth.csv", show_col_types = FALSE) %>%
                                                     "Government","Net Exports","Stat. Discrepancy")),
          cy = paste0(country, "\n", year_label), cy = fct_inorder(cy))
 
+d7_totals <- d7 %>%
+  group_by(cy) %>%
+  summarise(total = sum(contribution), .groups = "drop")
+
 g7 <- ggplot(d7, aes(x = cy, y = contribution, fill = component)) +
   geom_col(width = 0.65, color = "white", linewidth = 0.15) +
   geom_hline(yintercept = 0, color = "grey30", linewidth = 0.4) +
+  geom_text(data = d7_totals, aes(x = cy, y = total, label = sprintf("%.1f", total)),
+            inherit.aes = FALSE, vjust = -0.5, size = 3, fontface = "bold", family = "serif") +
   scale_fill_viridis_d(option = "plasma", end = 0.9) +
+  scale_y_continuous(expand = expansion(mult = c(0.05, 0.1))) +
   labs(title = "Graph 7. Contributions to Real GDP Growth by Expenditure Component",
        subtitle = "Percentage-point contributions of each component (components sum to real GDP growth)",
        x = NULL, y = "Contribution (percentage points)", fill = NULL,
@@ -233,7 +266,12 @@ d10 <- read_csv("data/gdp_per_capita_growth.csv", show_col_types = FALSE) %>%
 g10 <- ggplot(d10, aes(x = factor(year), y = real_gdp_per_capita_growth, fill = country)) +
   geom_col(position = position_dodge(width = 0.75), width = 0.68, color = "white", linewidth = 0.2) +
   geom_hline(yintercept = 0, color = "grey40", linewidth = 0.4) +
+  geom_text(aes(label = sprintf("%.1f", real_gdp_per_capita_growth),
+                vjust = ifelse(real_gdp_per_capita_growth >= 0, -0.4, 1.3)),
+            position = position_dodge(width = 0.75), size = 2.6, fontface = "bold",
+            family = "serif", show.legend = FALSE) +
   scale_fill_manual(values = country_colors) +
+  scale_y_continuous(expand = expansion(mult = c(0.05, 0.08))) +
   labs(title = "Graph 10. Real GDP Per Capita Growth (2021-2023)",
        subtitle = "India records the highest per-capita growth throughout; Germany turns negative in 2023",
        x = "Year", y = "Real GDP per Capita Growth (%)", fill = NULL,
