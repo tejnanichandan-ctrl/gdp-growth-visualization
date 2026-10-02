@@ -106,7 +106,8 @@ gdp-growth-visualization/
 │
 ├── scripts/
 │   ├── 00_theme.R                     # Shared academic ggplot2 theme + color palette + save helper
-│   └── 01_generate_graphs.R           # Generates all 10 graphs, saves to output/graphs/
+│   ├── 01_generate_graphs.R           # Generates all 10 graphs, saves to output/graphs/
+│   └── 02_fix_graphs_8_9.R            # Regenerates Graphs 8 & 9 with cleaner, decluttered labels (run after 01)
 │
 ├── output/
 │   └── graphs/                        # Final graphs (PNG + PDF)
