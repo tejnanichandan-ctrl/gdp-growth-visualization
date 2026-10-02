@@ -17,3 +17,9 @@ if (length(missing) > 0) {
 }
 
 source("scripts/01_generate_graphs.R")
+
+# 02_fix_graphs_8_9.R regenerates Graphs 8 & 9 with cleaner, decluttered
+# labels (short "Country 'YY" tags via ggrepel) — these are the versions
+# actually checked into output/graphs/, so this must run after 01 to
+# reproduce the current graphs exactly.
+source("scripts/02_fix_graphs_8_9.R")
