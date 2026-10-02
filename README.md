@@ -14,6 +14,26 @@ Between 2021 and 2023, GDP rose sharply across major economies — but did that 
 
 ---
 
+## About the research
+
+This case study was prepared as **Internal Assessment 2** for **OE Economics (SYBCom)**, under subject teacher **Angela Thomas**.
+
+The report examines the post-pandemic recovery (2021–2023) across the United States, Germany, Japan, and India, comparing nominal and real GDP growth, the GDP deflator, CPI inflation, expenditure components and their contributions to growth, labour-market outcomes (employment and unemployment), and real GDP per capita — to assess whether headline GDP growth in this period represented genuine economic expansion or was substantially a price-driven, nominal effect. The analysis draws on data from national statistical agencies (BEA, BLS, Destatis, Japan's Cabinet Office, MoSPI) and international institutions (IMF, World Bank, OECD), and follows UN System of National Accounts 2008 methodology throughout.
+
+**Group 3 — Research team:**
+
+| Member | Contribution |
+|---|---|
+| Sharanya & Mahi | Reference article review & post-pandemic inflation analysis |
+| Piyush | Nominal vs. real GDP & GDP deflator analysis |
+| Gravit | Data collection |
+| Chandan | Graphs & data analysis; referencing |
+| Pranay & Adwait | Country case studies & policy response; critical evaluation & supporting research |
+
+This repository specifically covers the **data collection and graphs** component of the shared case study.
+
+---
+
 ## Graphs
 
 ### Graph 1 — Nominal vs. Real GDP Growth
