@@ -1,16 +1,33 @@
 # GDP Analysis (R) — Nominal vs. Real GDP During High-Inflation Periods
 
+![Language](https://img.shields.io/badge/language-R-276DC3?logo=r)
+![Graphs](https://img.shields.io/badge/graphs-10-informational)
+![Reproducible](https://img.shields.io/badge/reproducible-Rscript%20run__all.R-success)
+![License: MIT](https://img.shields.io/badge/license-MIT-lightgrey)
+
 **Case study:** *Assessing Whether Post-Pandemic GDP Growth Reflected Real Economic Expansion or Price-Driven Nominal Growth*
 **Countries covered:** United States · Germany · Japan · India
 **Period:** 2021–2023 (2019 used as pre-pandemic benchmark)
 
 This repository contains all data, R scripts, and output graphs for the Data Collection & Graphs sections of the group case study.
 
+**Contents:** [The question](#the-question) · [About the research](#about-the-research) · [Key findings](#key-findings) · [Graphs](#graphs) · [Folder structure](#folder-structure) · [How to run](#how-to-run) · [References](#references)
+
 ---
 
 ## The question
 
 Between 2021 and 2023, GDP rose sharply across major economies — but did that growth reflect genuine expansion in output, or was it substantially inflated by rising prices? This project builds 10 reproducible graphs that decompose nominal GDP growth into its real (volume) and price (inflation) components across four contrasting economies.
+
+---
+
+## Key findings
+
+- **Nominal GDP growth overstated real growth almost everywhere.** The gap between the two was widest in the United States and Germany during 2022, and in India throughout the period — though India's real growth stayed strong regardless (see Graph 1 & 2).
+- **A large nominal–real gap does not by itself mean growth was "fake."** India combined the largest gaps of the four countries with the strongest real growth and the strongest post-pandemic recovery (Graph 4, Graph 5) — proof that price effects and genuine expansion can coexist.
+- **Germany is the clearest counter-example.** Real GDP contracted in 2023 (−0.30%) even as nominal GDP kept rising (5.76%) and prices (deflator 6.08%) stayed elevated — nominal GDP alone would have completely missed this contraction (Graph 1, 5, 6).
+- **Expenditure-level data is the strongest evidence of genuine growth.** Contribution analysis (Graph 7) shows real growth tied to identifiable consumption and investment activity in the US and India, not just price effects.
+- **The relationship between inflation and real growth is descriptive, not causal** — the same scale of price growth (6–9% deflator growth) coincided with real contraction in Germany and real expansion of 9%+ in India (Graph 5).
 
 ---
 
@@ -157,9 +174,11 @@ gdp-growth-visualization/
   over into your report's figure captions for the Bibliography & Data Referencing
   criterion.
 
-## Data sources
+## References
 
-Bureau of Economic Analysis (BEA) · Bureau of Labor Statistics (BLS) · Statistisches Bundesamt (Destatis) · Cabinet Office, Government of Japan · Statistics Bureau of Japan · Ministry of Statistics and Programme Implementation (MoSPI), India · IMF · World Bank · OECD · UN System of National Accounts 2008 (methodology for all formulas).
+Every figure in this repository traces back to a named government or international source. The full Chicago-style bibliography — with publication dates, release names, and direct links — is in **[REFERENCES.md](REFERENCES.md)**.
+
+**Agencies cited:** U.S. Bureau of Economic Analysis (BEA) · U.S. Bureau of Labor Statistics (BLS) · Statistisches Bundesamt, Germany (Destatis) · Cabinet Office & Statistics Bureau, Japan · Ministry of Statistics and Programme Implementation, India (MoSPI) · International Monetary Fund (IMF) · Bank for International Settlements (BIS) · Organisation for Economic Co-operation and Development (OECD) · United Nations System of National Accounts 2008 (methodology for every formula used).
 
 ## Editing / extending
 
@@ -167,3 +186,9 @@ Bureau of Economic Analysis (BEA) · Bureau of Labor Statistics (BLS) · Statist
   — no code changes needed, the scripts read directly from these files.
 - To restyle all graphs at once (e.g. change the font or palette), edit `scripts/00_theme.R`
   only; every graph inherits from `theme_academic()` and `country_colors`.
+
+---
+
+## License
+
+Released under the [MIT License](LICENSE) — free to use, adapt, and build on with attribution.
